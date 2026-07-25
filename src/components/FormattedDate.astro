@@ -4,14 +4,14 @@ interface Props {
 }
 
 const { date } = Astro.props;
+
+// 一律用 UTC 取值输出 YYYY-MM-DD。
+// frontmatter 里请写 ISO 形式（如 2026-07-25），它会被解析成 UTC 零点，
+// 这样本地开发机（+08）和 CI（UTC）渲染出的日期完全一致，不会差一天。
+const y = date.getUTCFullYear();
+const m = String(date.getUTCMonth() + 1).padStart(2, '0');
+const d = String(date.getUTCDate()).padStart(2, '0');
+const iso = `${y}-${m}-${d}`;
 ---
 
-<time datetime={date.toISOString()}>
-	{
-		date.toLocaleDateString('en-us', {
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric',
-		})
-	}
-</time>
+<time datetime={iso}>{iso}</time>

@@ -1,48 +1,58 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const recent = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 5);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+		<main class="wrapper py-12">
+			<!-- TODO: 换成你自己的自我介绍 -->
+			<h1 class="text-[1.75rem]">{SITE_TITLE}</h1>
+			<div class="prose mt-6">
+				<p>
+					这里记录我在机器学习与系统方向的学习笔记，主要是课程推导、论文阅读和实现过程中的踩坑记录。
+					写下来是为了迫使自己把"大概懂了"变成"能讲清楚"。
+				</p>
+				<p>
+					目前在跟 Stanford CS336（Language Modeling from Scratch），代码放在
+					<a href="https://github.com/Kingpython123/CS336-assignment">CS336-assignment</a>，
+					讲解性的文字在这边。
+				</p>
+			</div>
+
+			<section class="mt-14">
+				<h2 class="text-base font-semibold">近期笔记</h2>
+				<ul class="mt-4">
+					{
+						recent.map((post) => (
+							<li class="flex flex-wrap items-baseline justify-between gap-x-6 border-b border-rule py-3">
+								<a href={`/blog/${post.id}/`} class="no-underline hover:underline">
+									{post.data.title}
+								</a>
+								<span class="text-sm text-muted tabular-nums">
+									<FormattedDate date={post.data.pubDate} />
+								</span>
+							</li>
+						))
+					}
+				</ul>
+				<p class="mt-4 text-sm">
+					<a href="/blog">全部笔记 →</a>
+				</p>
+			</section>
 		</main>
 		<Footer />
 	</body>
