@@ -70,8 +70,13 @@ function yamlString(value) {
 
 const notes = keptNotes(exportDir);
 
-// 原始相对路径（去 id 后） -> slug，用于把 Notion 站内链接改写成本站链接
-const slugByCleanRel = new Map(Object.entries(mapping).map(([rel, cfg]) => [rel, cfg.slug]));
+// 原始相对路径（去 id 后） -> 本站笔记 id，用于把 Notion 站内链接改写成本站链接
+const noteIdByCleanRel = new Map(
+	Object.entries(mapping).map(([rel, cfg]) => [
+		rel,
+		cfg.section ? `${cfg.section}/${cfg.slug}` : cfg.slug,
+	]),
+);
 
 const summary = [];
 const problems = [];
@@ -90,6 +95,11 @@ for (const note of notes) {
 	}
 
 	const { slug, tags } = config;
+	const section = config.section?.trim() ?? '';
+	// 目录结构即层级：<section>/<slug>.md → /notes/<section>/<slug>/
+	// section 为空则是顶层笔记
+	const noteId = section ? `${section}/${slug}` : slug;
+	const outDir = section ? path.join(NOTES_DIR, section) : NOTES_DIR;
 	const title = config.title?.trim() || note.title;
 	const mdDir = path.dirname(note.abs);
 
@@ -114,7 +124,8 @@ for (const note of notes) {
 		}
 
 		const target = normalizeAssetName(path.basename(decoded));
-		copiedAssets.push({ source, target: path.join(NOTES_DIR, slug, target) });
+		// 图片放在 md 同级的 <slug>/ 子目录里，相对引用，Astro 才会接管处理
+		copiedAssets.push({ source, target: path.join(outDir, slug, target) });
 		return `![${alt}](./${slug}/${target})`;
 	});
 
@@ -127,8 +138,8 @@ for (const note of notes) {
 
 		if (decoded.toLowerCase().endsWith('.md')) {
 			const targetRel = stripNotionId(path.normalize(path.join(path.dirname(note.rel), decoded)));
-			const targetSlug = slugByCleanRel.get(targetRel);
-			if (targetSlug) return `[${text}](/notes/${targetSlug}/)`;
+			const targetId = noteIdByCleanRel.get(targetRel);
+			if (targetId) return `[${text}](/notes/${targetId}/)`;
 			return text; // 目标未发布，降级成纯文字
 		}
 
@@ -140,8 +151,8 @@ for (const note of notes) {
 		}
 
 		const target = normalizeAssetName(path.basename(decoded));
-		copiedAssets.push({ source, target: path.join(FILES_DIR, slug, target) });
-		return `[${text}](/files/${slug}/${target})`;
+		copiedAssets.push({ source, target: path.join(FILES_DIR, noteId, target) });
+		return `[${text}](/files/${noteId}/${target})`;
 	});
 
 	body = body.replace(/\n{3,}/g, '\n\n').trim();
@@ -159,8 +170,8 @@ for (const note of notes) {
 	].join('\n');
 
 	if (!dryRun) {
-		fs.mkdirSync(NOTES_DIR, { recursive: true });
-		fs.writeFileSync(path.join(NOTES_DIR, `${slug}.md`), `${frontmatter}${body}\n`, 'utf8');
+		fs.mkdirSync(outDir, { recursive: true });
+		fs.writeFileSync(path.join(outDir, `${slug}.md`), `${frontmatter}${body}\n`, 'utf8');
 
 		for (const asset of copiedAssets) {
 			fs.mkdirSync(path.dirname(asset.target), { recursive: true });
@@ -168,12 +179,12 @@ for (const note of notes) {
 		}
 	}
 
-	summary.push({ slug, title, date: dateInfo.created, assets: copiedAssets.length });
+	summary.push({ id: noteId, title, date: dateInfo.created, assets: copiedAssets.length });
 }
 
 summary.sort((a, b) => a.date.localeCompare(b.date));
 for (const s of summary) {
-	console.log(`${s.date}  ${s.slug.padEnd(36)} ${String(s.assets).padStart(3)} 个资源  ${s.title}`);
+	console.log(`${s.date}  ${s.id.padEnd(44)} ${String(s.assets).padStart(3)} 个资源  ${s.title}`);
 }
 
 console.log(`\n${dryRun ? '[试运行] ' : ''}共 ${summary.length} 篇`);

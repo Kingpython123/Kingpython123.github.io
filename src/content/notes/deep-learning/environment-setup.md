@@ -12,7 +12,7 @@ draft: true
 
 我选择下载最新的一版
 
-![image.png](./dl-environment-setup/image.png)
+![image.png](./environment-setup/image.png)
 
 双击打开安装包
 
@@ -34,11 +34,11 @@ conda activate d2l
 
 4：安装cuda
 
-![image.png](./dl-environment-setup/image-1.png)
+![image.png](./environment-setup/image-1.png)
 
 首先看电脑GPU驱动版本和CUDA最高能支持的版本，我下载的是11.8
 
-![image.png](./dl-environment-setup/image-2.png)
+![image.png](./environment-setup/image-2.png)
 
 5：下载课程代码和常见的包
 
@@ -84,11 +84,11 @@ return []`
 
 使用nvidia-smi命令可以看到自己电脑的GPU
 
-![image.png](./dl-environment-setup/image-3.png)
+![image.png](./environment-setup/image-3.png)
 
 cuda == gpu，下面是一些硬件描述的工具，来使用GPU
 
-![image.png](./dl-environment-setup/image-4.png)
+![image.png](./environment-setup/image-4.png)
 
 程序是默认跑在CPU上，所以需要通过函数把tensor存到GPU上，要进行张量操作时，需要把数据都放到同一个GPU上
 

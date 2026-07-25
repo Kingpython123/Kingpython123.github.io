@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { getSection, SECTIONS, sectionIdOf, type Section } from './sections';
 
 export type Note = CollectionEntry<'notes'>;
 
@@ -19,19 +20,42 @@ export async function getPublishedNotes(): Promise<Note[]> {
 	return notes.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 
-/** 按年份分组，用于列表页；返回的年份已倒序 */
-export function groupByYear(notes: Note[]): Array<[number, Note[]]> {
-	const byYear = new Map<number, Note[]>();
+/**
+ * 按章节分组。
+ *
+ * 章节顺序取自 SECTIONS 的数组顺序（人为编排，不按字母或篇数）；
+ * 未登记的目录排在已登记的之后。没有章节的顶层笔记单独作为一组返回。
+ */
+export async function getNotesBySection(): Promise<{
+	sections: Array<{ section: Section; notes: Note[] }>;
+	loose: Note[];
+}> {
+	const notes = await getPublishedNotes();
+
+	const grouped = new Map<string, Note[]>();
+	const loose: Note[] = [];
 
 	for (const note of notes) {
-		const year = note.data.date.getUTCFullYear();
-		const group = byYear.get(year);
-		if (group) {
-			group.push(note);
-		} else {
-			byYear.set(year, [note]);
+		const id = sectionIdOf(note.id);
+		if (!id) {
+			loose.push(note);
+			continue;
 		}
+		const group = grouped.get(id);
+		if (group) group.push(note);
+		else grouped.set(id, [note]);
 	}
 
-	return [...byYear.entries()].sort((a, b) => b[0] - a[0]);
+	const order = new Map(SECTIONS.map((s, index) => [s.id, index]));
+	const sections = [...grouped.entries()]
+		.sort((a, b) => (order.get(a[0]) ?? 999) - (order.get(b[0]) ?? 999))
+		.map(([id, group]) => ({ section: getSection(id), notes: group }));
+
+	return { sections, loose };
+}
+
+/** 取某个章节下的笔记，按日期倒序 */
+export async function getNotesInSection(sectionId: string): Promise<Note[]> {
+	const notes = await getPublishedNotes();
+	return notes.filter((note) => sectionIdOf(note.id) === sectionId);
 }

@@ -8,6 +8,7 @@ export async function getStaticPaths() {
 	// 这里漏掉过滤的后果最严重——页面会直接可访问，只是列表里没有入口。
 	const notes = await getPublishedNotes();
 	return notes.map((note) => ({
+		// note.id 形如 `cs336/assignment-1`，rest 参数会展开成多段路径
 		params: { slug: note.id },
 		props: note,
 	}));
@@ -19,6 +20,6 @@ const note = Astro.props;
 const { Content } = await render(note);
 ---
 
-<Note {...note.data}>
+<Note id={note.id} data={note.data}>
 	<Content />
 </Note>

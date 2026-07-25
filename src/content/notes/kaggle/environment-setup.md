@@ -1,5 +1,5 @@
 ---
-title: 'Kaggle 环境准备'
+title: '比赛环境准备'
 date: '2026-07-18'
 tags: ['Kaggle', '工具']
 draft: true
@@ -32,7 +32,7 @@ python -m venv .venv
 
 but 遇到了一个问题
 
-![image.png](./kaggle-env-setup/image.png)
+![image.png](./environment-setup/image.png)
 
 原因是：执行策略是Restricted（默认设置）
 
@@ -93,7 +93,7 @@ winget install --id Python.Python.3.12 -e --source winget
 py -0p
 ```
 
-![image.png](./kaggle-env-setup/image-1.png)
+![image.png](./environment-setup/image-1.png)
 
 然后创建虚拟环境、激活
 

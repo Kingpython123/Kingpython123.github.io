@@ -83,7 +83,7 @@ run_skill_script(
 
 ### 虚拟环境
 
-[环境准备](/notes/kaggle-env-setup/)
+[环境准备](/notes/kaggle/environment-setup/)
 
 ### 模型key
 

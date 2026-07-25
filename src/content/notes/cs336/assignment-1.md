@@ -1,5 +1,5 @@
 ---
-title: 'CS336 Assignment 1'
+title: 'Assignment 1'
 date: '2026-07-23'
 tags: ['CS336']
 draft: true
@@ -160,7 +160,7 @@ def run_train_bpe(
 
 给定一个语料库输入，输出vocab和merges
 
-[train_bpe.py](/files/cs336-assignment-1/train-bpe.py)
+[train_bpe.py](/files/cs336/assignment-1/train-bpe.py)
 
 #### 要求
 

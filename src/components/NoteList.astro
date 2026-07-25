@@ -1,0 +1,33 @@
+---
+import type { Note } from '../lib/posts';
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+	notes: Note[];
+	/** 是否显示每篇的 description 摘要 */
+	showDescription?: boolean;
+}
+
+const { notes, showDescription = true } = Astro.props;
+---
+
+<ul>
+	{
+		notes.map((note) => (
+			<li class="border-b border-rule py-3">
+				<div class="flex flex-wrap items-baseline justify-between gap-x-6">
+					<a href={`/notes/${note.id}/`} class="no-underline hover:underline">
+						{note.data.title}
+						{note.data.draft && <span class="ml-2 text-sm text-muted">[草稿]</span>}
+					</a>
+					<span class="text-sm text-muted tabular-nums">
+						<FormattedDate date={note.data.date} />
+					</span>
+				</div>
+				{showDescription && note.data.description && (
+					<p class="mt-1 text-sm text-muted">{note.data.description}</p>
+				)}
+			</li>
+		))
+	}
+</ul>

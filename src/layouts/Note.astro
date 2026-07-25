@@ -1,11 +1,19 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
+import { getSection, sectionIdOf } from '../lib/sections';
 import Base from './Base.astro';
 
-type Props = CollectionEntry<'notes'>['data'];
+interface Props {
+	id: CollectionEntry<'notes'>['id'];
+	data: CollectionEntry<'notes'>['data'];
+}
 
-const { title, description, date, updated, tags, draft } = Astro.props;
+const { id, data } = Astro.props;
+const { title, description, date, updated, tags, draft } = data;
+
+const sectionId = sectionIdOf(id);
+const section = sectionId ? getSection(sectionId) : null;
 ---
 
 <Base title={title} description={description}>
@@ -14,14 +22,26 @@ const { title, description, date, updated, tags, draft } = Astro.props;
 	    搜索结果里也就不会出现页头页脚的导航文字。 */}
 	<article data-pagefind-body>
 		<header class="mb-10">
+			<nav class="text-sm text-muted">
+				<a href="/notes">笔记</a>
+				{
+					section && (
+						<>
+							<span class="mx-2">/</span>
+							<a href={`/notes/${section.id}/`}>{section.name}</a>
+						</>
+					)
+				}
+			</nav>
+
 			{
 				draft && (
-					<p class="mb-2 text-sm text-muted">
-						草稿 · 仅本地可见，生产构建不会生成此页
-					</p>
+					<p class="mt-3 text-sm text-muted">草稿 · 仅本地可见，生产构建不会生成此页</p>
 				)
 			}
-			<h1 class="text-[1.75rem] leading-snug">{title}</h1>
+
+			<h1 class="mt-2 text-[1.75rem] leading-snug">{title}</h1>
+
 			<p class="mt-3 text-sm text-muted">
 				<FormattedDate date={date} />
 				{

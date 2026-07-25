@@ -1,5 +1,5 @@
 ---
-import FormattedDate from '../components/FormattedDate.astro';
+import NoteList from '../components/NoteList.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import Base from '../layouts/Base.astro';
 import { getPublishedNotes } from '../lib/posts';
@@ -30,19 +30,9 @@ const recent = (await getPublishedNotes()).slice(0, 5);
 				<p class="mt-4 text-muted">还没有已发布的笔记。</p>
 			) : (
 				<>
-					<ul class="mt-4">
-						{recent.map((note) => (
-							<li class="flex flex-wrap items-baseline justify-between gap-x-6 border-b border-rule py-3">
-								<a href={`/notes/${note.id}/`} class="no-underline hover:underline">
-									{note.data.title}
-									{note.data.draft && <span class="ml-2 text-sm text-muted">[草稿]</span>}
-								</a>
-								<span class="text-sm text-muted tabular-nums">
-									<FormattedDate date={note.data.date} />
-								</span>
-							</li>
-						))}
-					</ul>
+					<div class="mt-4">
+						<NoteList notes={recent} showDescription={false} />
+					</div>
 					<p class="mt-4 text-sm">
 						<a href="/notes">全部笔记 →</a>
 					</p>
