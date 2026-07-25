@@ -1,4 +1,8 @@
 ---
+// KaTeX 的样式表放在 global.css 之前导入，这样我们自己的 .prose 规则
+// 在同等优先级下能覆盖它。字体文件由 Vite 解析 url() 后一起打包自托管，
+// 浏览器只在页面真的出现公式字形时才会去下载。
+import 'katex/dist/katex.min.css';
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';

@@ -220,6 +220,25 @@
 		border-block-start: 1px solid var(--color-rule);
 	}
 
+	/* 数学公式：KaTeX 默认按 1.21em 放大，衬线正文里显得过大，压回接近正文字号 */
+	.prose .katex {
+		font-size: 1.06em;
+	}
+
+	/* 长公式在窄屏上横向滚动，而不是撑破版面 */
+	.prose .katex-display {
+		margin-block: 1.5em;
+		padding-block: 0.25em;
+		overflow-x: auto;
+		overflow-y: hidden;
+	}
+
+	/* 写错的公式降级成原文，用颜色标出来好排查 */
+	.prose .math-error {
+		color: #a3324b;
+		background-color: #fdf0f2;
+	}
+
 	.prose sup a {
 		text-decoration: none;
 	}
