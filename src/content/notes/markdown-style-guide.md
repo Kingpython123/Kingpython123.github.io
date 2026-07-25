@@ -1,8 +1,9 @@
 ---
-title: 'Markdown Style Guide'
-description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
-pubDate: '2024-06-19'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: 'Markdown 排版参考'
+description: '各类 Markdown 元素在本站的渲染效果，用来核对 prose 样式。'
+date: '2024-06-19'
+tags: ['站点']
+draft: true
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
@@ -39,7 +40,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ### Output
 
-![blog placeholder](../../assets/blog-placeholder-about.jpg)
+![示例图片](../../assets/og-default.jpg)
 
 ## Blockquotes
 

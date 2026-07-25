@@ -1,0 +1,24 @@
+---
+import { render } from 'astro:content';
+import Note from '../../layouts/Note.astro';
+import { getPublishedNotes, type Note as NoteEntry } from '../../lib/posts';
+
+export async function getStaticPaths() {
+	// 走 getPublishedNotes 而非 getCollection：生产构建下草稿不生成页面。
+	// 这里漏掉过滤的后果最严重——页面会直接可访问，只是列表里没有入口。
+	const notes = await getPublishedNotes();
+	return notes.map((note) => ({
+		params: { slug: note.id },
+		props: note,
+	}));
+}
+
+type Props = NoteEntry;
+
+const note = Astro.props;
+const { Content } = await render(note);
+---
+
+<Note {...note.data}>
+	<Content />
+</Note>
