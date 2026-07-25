@@ -1,0 +1,46 @@
+{
+  "_说明": [
+    "Notion 原路径 → 目标文件名（slug）、标题、标签 的映射表。",
+    "slug 决定最终 URL：/notes/<slug>/，必须是 ASCII kebab-case。",
+    "title 留空表示沿用 Notion 原标题；填了则覆盖（用于原标题过于笼统的情况）。",
+    "这份表由人工审核，导入脚本只按表执行，不自己猜。"
+  ],
+
+  "notes": {
+    "deeplearning 2 limu\\预备知识.md": { "slug": "preliminaries", "title": "", "tags": ["深度学习", "李沐课程"] },
+    "deeplearning 2 limu\\线性神经网络.md": { "slug": "linear-neural-network", "title": "", "tags": ["深度学习", "李沐课程"] },
+    "deeplearning 2 limu\\softmax回归.md": { "slug": "softmax-regression", "title": "", "tags": ["深度学习", "李沐课程"] },
+    "deeplearning 2 limu\\感知机+激活函数.md": { "slug": "perceptron-and-activation", "title": "", "tags": ["深度学习", "李沐课程"] },
+    "deeplearning 2 limu\\模型选择+过拟合欠拟合+权重衰退.md": { "slug": "model-selection-and-regularization", "title": "", "tags": ["深度学习", "李沐课程"] },
+    "deeplearning 2 limu\\数值的稳定性+模型初始化和激活函数.md": { "slug": "numerical-stability-and-init", "title": "", "tags": ["深度学习", "李沐课程"] },
+    "deeplearning 2 limu\\dropout.md": { "slug": "dropout", "title": "Dropout", "tags": ["深度学习", "李沐课程"] },
+    "deeplearning 2 limu\\卷积神经网络.md": { "slug": "convolutional-neural-network", "title": "", "tags": ["深度学习", "李沐课程"] },
+    "deeplearning 2 limu\\CV.md": { "slug": "computer-vision", "title": "计算机视觉", "tags": ["深度学习", "李沐课程", "CV"] },
+    "deeplearning 2 limu\\数据集\\图像分类.md": { "slug": "image-classification-datasets", "title": "图像分类数据集", "tags": ["深度学习", "李沐课程"] },
+    "deeplearning 2 limu\\环境安装.md": { "slug": "dl-environment-setup", "title": "深度学习环境安装", "tags": ["深度学习", "工具"] },
+
+    "about paper\\how to read paper\\NLP-Transformer\\Transformer.md": { "slug": "transformer", "title": "Transformer", "tags": ["论文精读", "NLP"] },
+    "about paper\\how to read paper\\NLP-Transformer\\BERT.md": { "slug": "bert", "title": "BERT", "tags": ["论文精读", "NLP"] },
+    "about paper\\how to read paper\\CV-Transformer\\VIT.md": { "slug": "vit", "title": "ViT", "tags": ["论文精读", "CV"] },
+    "about paper\\how to read paper\\CV-Transformer\\MAE.md": { "slug": "mae", "title": "MAE", "tags": ["论文精读", "CV"] },
+    "about paper\\how to read paper\\CV-对比学习\\MOCO（没太看懂对比学习）.md": { "slug": "moco", "title": "", "tags": ["论文精读", "CV", "对比学习"] },
+    "about paper\\how to read paper\\CV-CNN\\ResNet论文精读.md": { "slug": "resnet", "title": "ResNet 论文精读", "tags": ["论文精读", "CV"] },
+    "ai infra\\Scaling Laws for Neural Language Models.md": { "slug": "scaling-laws", "title": "", "tags": ["论文精读", "AI Infra"] },
+    "about paper\\how to read paper.md": { "slug": "how-to-read-paper", "title": "如何读论文", "tags": ["方法论"] },
+    "about paper\\邪修.md": { "slug": "research-shortcuts", "title": "", "tags": ["方法论"] },
+    "about paper\\科研工具合集.md": { "slug": "research-tools", "title": "", "tags": ["工具"] },
+
+    "CS336\\assignment-1.md": { "slug": "cs336-assignment-1", "title": "CS336 Assignment 1", "tags": ["CS336"] },
+    "CS336\\git.md": { "slug": "git-basics", "title": "Git 常用操作", "tags": ["工具"] },
+    "CS336\\python\\uv.md": { "slug": "uv", "title": "uv 包管理器", "tags": ["工具", "Python"] },
+    "CS336\\python\\基础.md": { "slug": "python-basics", "title": "Python 基础", "tags": ["Python", "CS336"] },
+
+    "kaggle\\autonomous-agent-prediction-beta.md": { "slug": "autonomous-agent-prediction", "title": "Autonomous Agent Prediction", "tags": ["Kaggle"] },
+    "kaggle\\autonomous-agent-prediction-beta\\环境准备.md": { "slug": "kaggle-env-setup", "title": "Kaggle 环境准备", "tags": ["Kaggle", "工具"] },
+
+    "ai infra.md": { "slug": "ai-infra", "title": "AI Infra", "tags": ["AI Infra"] },
+    "ai infra\\aicluster.md": { "slug": "ai-cluster", "title": "AI Cluster", "tags": ["AI Infra"] },
+
+    "各种问题汇总.md": { "slug": "troubleshooting", "title": "", "tags": ["踩坑"] }
+  }
+}
