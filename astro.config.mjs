@@ -16,6 +16,17 @@ export default defineConfig({
 	integrations: [mdx(), sitemap()],
 
 	markdown: {
+		shikiConfig: {
+			// 用 themes + defaultColor: false，Shiki 会把配色输出成 CSS 变量
+			// （--shiki-light 之类）而不是写死的内联 color/background-color。
+			// 好处是背景色由我们自己的 CSS 决定，不必用 !important 去盖内联样式。
+			// 将来要加暗色模式，这里补一个 dark 主题、CSS 里加一条媒体查询即可。
+			themes: { light: 'github-light' },
+			defaultColor: false,
+			// 代码不折行，长行横向滚动；折行会打断缩进结构，反而更难读
+			wrap: false,
+		},
+
 		// Astro 7 的默认 Markdown 管线是 Sätteri（不是 remark/rehype），
 		// 所以数学公式走它的 math 解析特性 + 自写的 KaTeX 渲染插件，
 		// 不需要换成 unified，也就不用引入整套 remark 生态。

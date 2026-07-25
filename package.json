@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "postbuild": "pagefind --site dist --exclude-selectors \".katex\"",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -21,5 +22,8 @@
     "katex": "0.18.1",
     "sharp": "^0.35.0",
     "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "pagefind": "1.5.2"
   }
 }

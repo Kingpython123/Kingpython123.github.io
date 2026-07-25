@@ -175,6 +175,18 @@
 		font-family: inherit;
 	}
 
+	/* Shiki 以 defaultColor: false 输出，配色只存在于 --shiki-light 变量里，
+	   需要这条规则把它取出来用。背景色不取主题的纯白，改用页面自己的浅底色，
+	   让代码块和行内代码在暖白纸面上保持一致。 */
+	.prose pre.astro-code,
+	.prose pre.astro-code span {
+		color: var(--shiki-light);
+	}
+
+	.prose pre.astro-code {
+		background-color: var(--color-fill);
+	}
+
 	.prose img {
 		display: block;
 		max-width: 100%;
@@ -250,6 +262,13 @@
 		color: var(--color-muted);
 		font-size: 0.9375rem;
 	}
+}
+
+/* 搜索结果里 Pagefind 生成的关键词高亮 */
+mark {
+	background-color: var(--color-fill);
+	color: var(--color-ink);
+	box-shadow: inset 0 -0.4em 0 color-mix(in srgb, var(--color-accent) 18%, transparent);
 }
 
 .sr-only {

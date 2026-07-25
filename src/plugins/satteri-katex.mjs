@@ -31,6 +31,12 @@ export function satteriKatex(userOptions = {}) {
 					// 迁移过来的笔记里难免有非标准写法，别为此刷屏
 					strict: 'ignore',
 				});
+
+				// 注意：公式需要排除出 Pagefind 索引（否则同一条公式会被抓三遍——
+				// 可见字形、MathML 文本、<annotation> 里的 LaTeX 原文），
+				// 但这件事不在这里做。实测往这段 HTML 里插 data-pagefind-ignore
+				// 无效：Sätteri 把 { raw } 字符串重新解析时会丢掉无值属性。
+				// 所以改在 package.json 的 postbuild 里用 pagefind --exclude-selectors 处理。
 				return { raw: html, mdxExpressions: false };
 			} catch (error) {
 				// 不让一条写错的公式炸掉整个构建，降级成等宽原文。

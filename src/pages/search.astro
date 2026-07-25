@@ -1,0 +1,134 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`搜索 · ${SITE_TITLE}`} description="站内全文搜索" />
+	</head>
+	<body>
+		<Header />
+		<main class="wrapper py-12">
+			<h1 class="text-[1.75rem]">搜索</h1>
+
+			<form class="mt-6" role="search" onsubmit="return false">
+				<label for="q" class="sr-only">搜索关键词</label>
+				<input
+					type="search"
+					id="q"
+					name="q"
+					autocomplete="off"
+					autofocus
+					placeholder="输入关键词，如 attention、梯度、tokenizer"
+					class="w-full border-b border-rule bg-transparent py-2 text-lg outline-none focus:border-accent"
+				/>
+			</form>
+
+			<p id="status" class="mt-4 text-sm text-muted" aria-live="polite"></p>
+			<ul id="results" class="mt-6"></ul>
+		</main>
+		<Footer />
+
+		<script>
+			const input = document.querySelector('#q') as HTMLInputElement;
+			const status = document.querySelector('#status') as HTMLParagraphElement;
+			const results = document.querySelector('#results') as HTMLUListElement;
+
+			let pagefind: any = null;
+			let loadFailed = false;
+
+			async function loadPagefind() {
+				if (pagefind || loadFailed) return pagefind;
+				// 索引由 postbuild 阶段的 pagefind CLI 生成，产物在 dist/pagefind/。
+				// 路径写成变量并加 @vite-ignore，防止 Vite 在构建时试图解析这个
+				// 尚不存在的模块而报错。
+				const modulePath = '/pagefind/pagefind.js';
+				try {
+					pagefind = await import(/* @vite-ignore */ modulePath);
+					await pagefind.init();
+				} catch {
+					loadFailed = true;
+					status.textContent =
+						'搜索索引不可用。索引在 npm run build 时生成，本地开发请改用 npm run preview 预览。';
+				}
+				return pagefind;
+			}
+
+			function render(items: any[], query: string) {
+				results.replaceChildren();
+
+				if (items.length === 0) {
+					status.textContent = `没有匹配「${query}」的结果。`;
+					return;
+				}
+
+				status.textContent = `${items.length} 条结果`;
+
+				for (const item of items) {
+					const li = document.createElement('li');
+					li.className = 'border-b border-rule py-4';
+
+					const link = document.createElement('a');
+					link.href = item.url;
+					link.textContent = item.meta?.title ?? item.url;
+					link.className = 'no-underline hover:underline';
+					li.append(link);
+
+					const excerpt = document.createElement('p');
+					excerpt.className = 'mt-1 text-sm text-muted';
+					// excerpt 里含 Pagefind 生成的 <mark> 高亮标签，内容源自本站自己的
+					// Markdown，不是外部输入，所以这里用 innerHTML 是安全的。
+					excerpt.innerHTML = item.excerpt;
+					li.append(excerpt);
+
+					results.append(li);
+				}
+			}
+
+			async function runSearch(query: string) {
+				const trimmed = query.trim();
+
+				// 同步地址栏，方便把搜索结果直接分享或收藏
+				const url = new URL(window.location.href);
+				if (trimmed) {
+					url.searchParams.set('q', trimmed);
+				} else {
+					url.searchParams.delete('q');
+				}
+				window.history.replaceState({}, '', url);
+
+				if (!trimmed) {
+					results.replaceChildren();
+					status.textContent = '';
+					return;
+				}
+
+				const pf = await loadPagefind();
+				if (!pf) return;
+
+				status.textContent = '搜索中…';
+				const search = await pf.search(trimmed);
+				// 只取前 20 条，逐条拉取详情
+				const items = await Promise.all(search.results.slice(0, 20).map((r: any) => r.data()));
+				render(items, trimmed);
+			}
+
+			let timer: ReturnType<typeof setTimeout>;
+			input.addEventListener('input', () => {
+				clearTimeout(timer);
+				timer = setTimeout(() => runSearch(input.value), 180);
+			});
+
+			// 支持直接访问 /search?q=xxx
+			const initial = new URL(window.location.href).searchParams.get('q');
+			if (initial) {
+				input.value = initial;
+				runSearch(initial);
+			}
+		</script>
+	</body>
+</html>
