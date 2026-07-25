@@ -1,8 +1,8 @@
----
+﻿---
 title: 'Autonomous Agent Prediction'
 date: '2026-07-17'
 tags: ['Kaggle']
-draft: true
+draft: false
 ---
 一个元比赛，编写一个自主ai agent。让这个agent去做数据科学的活
 

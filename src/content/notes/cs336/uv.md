@@ -1,8 +1,8 @@
----
+﻿---
 title: 'uv 包管理器'
 date: '2026-07-25'
 tags: ['工具', 'Python']
-draft: true
+draft: false
 ---
 uv等价于
 

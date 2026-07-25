@@ -1,8 +1,8 @@
----
+﻿---
 title: 'AI Infra 概览'
 date: '2026-05-19'
 tags: ['AI Infra']
-draft: true
+draft: false
 ---
 [Scaling Laws for Neural Language Models](/notes/ai-infra/scaling-laws/)
 

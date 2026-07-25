@@ -2,7 +2,7 @@
 title: 'Transformer'
 date: '2026-07-11'
 tags: ['论文精读', 'NLP']
-draft: true
+draft: false
 ---
 序列到序列的生成，比如机器翻译
 

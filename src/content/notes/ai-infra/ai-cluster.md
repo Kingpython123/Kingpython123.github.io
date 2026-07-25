@@ -1,8 +1,8 @@
----
+﻿---
 title: 'AI Cluster'
 date: '2026-05-19'
 tags: ['AI Infra']
-draft: true
+draft: false
 ---
 参数量分析
 一个模型的参数，本质上就是它在训练过程中学习到的所有权重（weights）和偏置（biases）的总和。

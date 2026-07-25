@@ -1,8 +1,8 @@
----
+﻿---
 title: '各种问题汇总'
 date: '2026-01-03'
 tags: ['踩坑']
-draft: true
+draft: false
 ---
 1：clash for windows关闭global之后，无法正常上网？
 

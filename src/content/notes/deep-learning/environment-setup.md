@@ -1,8 +1,8 @@
----
+﻿---
 title: '深度学习环境安装'
 date: '2026-06-21'
 tags: ['深度学习', '工具']
-draft: true
+draft: false
 ---
 1：miniconda
 

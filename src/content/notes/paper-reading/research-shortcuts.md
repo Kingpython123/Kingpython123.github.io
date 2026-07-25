@@ -1,8 +1,8 @@
----
+﻿---
 title: '邪修'
 date: '2026-07-15'
 tags: ['方法论']
-draft: true
+draft: false
 ---
 1：去谷歌学术找文章
 

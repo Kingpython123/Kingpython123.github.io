@@ -1,8 +1,8 @@
----
+﻿---
 title: 'ResNet 论文精读'
 date: '2026-07-06'
 tags: ['论文精读', 'CV']
-draft: true
+draft: false
 ---
 ## ReLu
 

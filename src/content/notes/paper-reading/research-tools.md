@@ -1,8 +1,8 @@
----
+﻿---
 title: '科研工具合集'
 date: '2026-04-06'
 tags: ['工具']
-draft: true
+draft: false
 ---
 这是一个科研工具收藏夹 
 

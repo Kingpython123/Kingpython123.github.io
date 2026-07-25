@@ -1,8 +1,8 @@
----
+﻿---
 title: 'ViT'
 date: '2026-07-16'
 tags: ['论文精读', 'CV']
-draft: true
+draft: false
 ---
 ## 摘要
 

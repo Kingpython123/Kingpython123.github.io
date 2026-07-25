@@ -1,8 +1,8 @@
----
+﻿---
 title: 'Python 基础'
 date: '2026-07-25'
 tags: ['Python', 'CS336']
-draft: true
+draft: false
 ---
 ## 函数
 

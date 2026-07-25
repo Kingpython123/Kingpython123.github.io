@@ -1,8 +1,8 @@
----
+﻿---
 title: 'softmax回归'
 date: '2026-07-03'
 tags: ['深度学习', '李沐课程']
-draft: true
+draft: false
 ---
 其实是一个多类的分类问题
 

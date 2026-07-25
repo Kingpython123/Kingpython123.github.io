@@ -1,8 +1,8 @@
----
+﻿---
 title: '比赛环境准备'
 date: '2026-07-18'
 tags: ['Kaggle', '工具']
-draft: true
+draft: false
 ---
 打开powershell
 

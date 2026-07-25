@@ -1,8 +1,8 @@
----
+﻿---
 title: 'MOCO（没太看懂对比学习）'
 date: '2026-07-18'
 tags: ['论文精读', 'CV', '对比学习']
-draft: true
+draft: false
 ---
 ## 背景
 

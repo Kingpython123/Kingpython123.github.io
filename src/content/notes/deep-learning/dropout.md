@@ -1,8 +1,8 @@
----
+﻿---
 title: 'Dropout'
 date: '2026-07-08'
 tags: ['深度学习', '李沐课程']
-draft: true
+draft: false
 ---
 ![image.png](./dropout/image.png)
 

@@ -1,8 +1,8 @@
----
+﻿---
 title: '卷积神经网络'
 date: '2026-07-13'
 tags: ['深度学习', '李沐课程']
-draft: true
+draft: false
 ---
 ## 背景
 

@@ -1,8 +1,8 @@
----
+﻿---
 title: '数值的稳定性+模型初始化和激活函数'
 date: '2026-07-10'
 tags: ['深度学习', '李沐课程']
-draft: true
+draft: false
 ---
 ![image.png](./numerical-stability-and-init/image.png)
 

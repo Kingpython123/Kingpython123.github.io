@@ -1,8 +1,8 @@
----
+﻿---
 title: 'Assignment 1'
 date: '2026-07-23'
 tags: ['CS336']
-draft: true
+draft: false
 ---
 整个作业的任务可以大致分成四个阶段
 

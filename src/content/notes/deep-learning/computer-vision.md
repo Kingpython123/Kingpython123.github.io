@@ -1,8 +1,8 @@
----
+﻿---
 title: '计算机视觉'
 date: '2026-07-14'
 tags: ['深度学习', '李沐课程', 'CV']
-draft: true
+draft: false
 ---
 ## 数据增广
 

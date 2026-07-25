@@ -1,8 +1,8 @@
----
+﻿---
 title: '如何读论文'
 date: '2026-07-03'
 tags: ['方法论']
-draft: true
+draft: false
 ---
 pass 1
 

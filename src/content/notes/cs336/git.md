@@ -1,8 +1,8 @@
----
+﻿---
 title: 'Git 常用操作'
 date: '2026-07-25'
 tags: ['工具']
-draft: true
+draft: false
 ---
 如何把自己的代码上传到给github上
 
