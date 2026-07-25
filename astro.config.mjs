@@ -6,7 +6,8 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
+	// 仓库名匹配 <username>.github.io，因此不需要配置 base
+	site: 'https://kingpython123.github.io',
 	integrations: [mdx(), sitemap()],
 	fonts: [
 		{
